@@ -50,7 +50,22 @@ public class GameMap extends JPanel {
             return;
         }
 
-        if (gameMode == MODE_VS_HUMAN) {
+        if (gameMode == MODE_VS_AI) {
+
+            if (!playerTurn(e, DOT_HUMAN)) {
+                return;
+            }
+            if (gameCheck(DOT_HUMAN, STATE_WIN_FIRST_PLAYER)) {
+                return;
+            }
+            aiTurn();
+            repaint();
+            if (gameCheck(DOT_AI, STATE_WIN_AI)) {
+                return;
+            }
+
+        } else if (gameMode == MODE_VS_HUMAN){
+
             if (playerNumTurn == 1) {
                 if (!playerTurn(e, DOT_HUMAN)) {
                     return;
@@ -65,18 +80,6 @@ public class GameMap extends JPanel {
                 if (gameCheck(DOT_AI, STATE_WIN_SECOND_PLAYER)) {
                     return;
                 }
-            }
-        } else {
-            if (!playerTurn(e, DOT_HUMAN)) {
-                return;
-            }
-            if (gameCheck(DOT_HUMAN, STATE_WIN_FIRST_PLAYER)) {
-                return;
-            }
-            aiTurn();
-            repaint();
-            if (gameCheck(DOT_AI, STATE_WIN_AI)) {
-                return;
             }
         }
     }
